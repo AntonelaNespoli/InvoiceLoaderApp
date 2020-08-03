@@ -10,16 +10,18 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   formInvoiceLoader: FormGroup;
-  submitted = false;
   invoices = [];
 
+  //flags
+  submitted = false;
   existInvoice = false;
-  //TODO:
-  // CREAR LAS TABLAS DE INVOICES Y CARGARLAS, falta la de mobile
+  existInvoices = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     //if exist invoices in the localStorage, charge the table
     this.invoices = JSON.parse(localStorage.getItem('invoices'));
+    //if exist invoices show the table and the button to continue to next view
+    this.existInvoices = this.invoices != null && this.invoices.length > 0;
   }
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class HomeComponent implements OnInit {
     });
     }
 
-  //this is for call from in the html
+  //this is for call from html
   get f() {
     return this.formInvoiceLoader.controls;
   }
@@ -69,7 +71,7 @@ export class HomeComponent implements OnInit {
     total = net * (1 + taxPercent / 100);
     tax = total - net;
 
-    //set the controls: total, tax
+    //set the controls: total, tax, net
     //and tax percent (this is because when the user don't select the percent, the default value is 21% and is important show this to the user)
      this.formInvoiceLoader.controls.total.setValue(new Intl.NumberFormat("de-DE").format(Number(total.toFixed(2))));
      this.formInvoiceLoader.controls.taxPercent.setValue(taxPercent);
@@ -112,6 +114,7 @@ export class HomeComponent implements OnInit {
     //if not exist, add to the list, update the localStorage, and clear the form
     if (!this.existInvoice) {
       this.invoices.push(invoice);
+      this.existInvoices = this.invoices.length > 0;
       localStorage.removeItem('invoices');
       localStorage.setItem('invoices', JSON.stringify(this.invoices));
       this.clear();
@@ -123,6 +126,7 @@ export class HomeComponent implements OnInit {
     let invoice: any = this.invoices.find(inv => inv.invoiceId == invoiceId);
     //delete the invoice
     this.invoices = this.invoices.filter(x => x !== invoice);
+    this.existInvoices = this.invoices.length > 0;
     //update the localStorage
     localStorage.removeItem('invoices');
     localStorage.setItem('invoices', JSON.stringify(this.invoices));

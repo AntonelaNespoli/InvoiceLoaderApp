@@ -71,7 +71,7 @@
     </div>
   </div>
 </div>
-<div class="row desktopVersion">
+<div class="row desktopVersion" *ngIf="existInvoices">
   <div class="col align-self-center">
     <table class="table text-center">
       <thead class="thead-dark">
@@ -95,7 +95,7 @@
     </table>
   </div>
 </div>
-<div class="row mobileVersion">
+<div class="row mobileVersion" *ngIf="existInvoices">
   <div class="col align-self-center">
     <table *ngFor="let invoice of invoices; index as i" class="table text-center">
       <thead class="thead-dark">
@@ -127,8 +127,8 @@
     </table>
   </div>
 </div>
-<div class="row rowBtnContinue">
-  <div class="col-3">
+<div class="row rowBtnContinue" *ngIf="existInvoices">
+  <div class="colBtnContinue col-3">
     <button type="submit" class="btn btn-primary btn-block" (click)="processAndContinue()">
       Process and Continue
     </button>

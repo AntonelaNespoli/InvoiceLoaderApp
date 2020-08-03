@@ -1,3 +1,5 @@
+@import ../../app.component.sass
+
 .formInvoiceLoader
   display: flex
   justify-content: space-between
@@ -43,21 +45,9 @@
     width: 98%
     margin-bottom: 3%
 
-
-.desktopVersion
-  @media screen and (max-width: 767px)
-    display: none
-
-  @media screen and (min-width: 768px)
-    display: block
-
-.mobileVersion
-  @media screen and (max-width: 767px)
-    display:block
-
-  @media screen and (min-width: 768px)
-    display: none
-
-
 .rowBtnContinue
   flex-direction: row-reverse
+
+.colBtnContinue
+  @media screen and (max-width: 1199px)
+    display:(contents !important)

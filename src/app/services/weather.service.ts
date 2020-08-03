@@ -10,11 +10,12 @@ export class WeatherService {
   apiKey: string = '699346696374b32fe811c20a030e5717'
 
   constructor(private httpClient: HttpClient) {
+    //load the urls for api
     this.URIcurrent = `https://api.openweathermap.org/data/2.5/weather?appid=${this.apiKey}`;
     this.URIforecast = `https://api.openweathermap.org/data/2.5/forecast?appid=${this.apiKey}`;
   }
 
-  //this service execute the nearbySearch
+  //this services return the current weather
   getCurrentWeather(latitude: number, longitude: number) {
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log(position.coords.latitude, position.coords.longitude);
@@ -23,7 +24,7 @@ export class WeatherService {
     return this.httpClient.get(`${this.URIcurrent}`);
 
   }
-
+  //this services return the extended forecast
   getForecastWeather(latitude: number, longitude: number) {
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log(position.coords.latitude, position.coords.longitude);
