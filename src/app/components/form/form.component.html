@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col align-self-center">
+    <form class="formInvoiceLoader" [formGroup]="formInvoiceLoader" (ngSubmit)="onSubmit()">
+      <div class="form-group row">
+        <label class="col col-form-label">Invoice Number</label>
+        <div class="col">
+          <input class="form-control" type="text" placeholder="00000000" length="8" formControlName="invoiceId">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col col-form-label">Net</label>
+        <div class="col">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+            <input class="form-control" type="number" placeholder="0" formControlName="net" (change)="onChanges()">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col col-form-label">% Tax</label>
+        <div class="col">
+          <select class="custom-select" formControlName="tax" (change)="onChanges()">
+            <option [ngValue]="21" hidden [selected]>Select Tax %</option>
+            <option [ngValue]="0"> 0% </option>
+            <option [ngValue]="10.5"> 10.5% </option>
+            <option [ngValue]="21"> 21% </option>
+            <option [ngValue]="27"> 27% </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col col-form-label">Total</label>
+        <div class="col">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+            <input class="form-control" type="text" placeholder="0" disabled formControlName="total" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col col-form-label">&nbsp;</label>
+        <div class="col">
+          <button name="add" class="btn btn-outline-success btn-block btnForm">
+            Add
+          </button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col col-form-label">&nbsp;</label>
+        <div class="col">
+          <button name="clear" class="btn btn-outline-danger btn-block btnForm">
+            Clear
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="row" *ngIf="(submitted && f.invoiceId.errors)">
+      <div class="col alert alert-danger" role="alert">
+        <p *ngIf="f.invoiceId.errors.required && f.invoiceId.status == 'INVALID'">Invoice Number is required</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="(submitted && ( f.net.errors))">
+      <div class="col alert alert-danger" role="alert">
+        <p *ngIf="f.net.errors.required && f.net.status == 'INVALID'">Net amount is required</p>
+      </div>
+    </div>
+  </div>
+</div>
