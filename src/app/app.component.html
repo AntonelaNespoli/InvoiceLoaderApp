@@ -15,9 +15,7 @@
         <img src="../assets/img/Code Challenge Banner.jfif" alt="banner, relaxed office worker" class="banner" width="100%" />
       </div>
     </div>
-    <app-form></app-form>
-    <app-table-invoices></app-table-invoices>
-    <app-table-totals *ngIf="false"></app-table-totals>
+    <router-outlet></router-outlet>
     <div class="row">
       <div class="col align-self-center col-api-weather">
         <div class="weather" *ngIf="weather">

@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.sass'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.sass']
 })
-export class FormComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   formInvoiceLoader: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  //TODO:
+  // VERIFICAR QUE NO EXISTAN INVOICES EN EL LOCALSTORAGE
+  // CREAR LAS TABLAS DE INVOICES Y CARGARLAS
+
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.formInvoiceLoader = this.formBuilder.group({
@@ -39,13 +44,6 @@ export class FormComponent implements OnInit {
     this.clear();
   }
 
-  clear() {
-    this.submitted = false;
-    this.formInvoiceLoader.reset();
-  }
-
-  addInvoice() {}
-
   onChanges(): void {
     let net: number = this.formInvoiceLoader.get('net').value;
     let tax: number = this.formInvoiceLoader.get('tax').value;
@@ -54,5 +52,36 @@ export class FormComponent implements OnInit {
 
     total = net * (1 + tax / 100);
     this.formInvoiceLoader.controls.total.setValue(new Intl.NumberFormat("de-DE").format(Number(total.toFixed(2))));
+  }
+
+  clear() {
+    this.submitted = false;
+    this.formInvoiceLoader.reset({
+      invoiceId: '',
+      net: '',
+      tax: 21,
+      total: '',
+    });
+  }
+
+  addInvoice() {
+    let invoices: any = localStorage.getItem('invoices') != null ? JSON.parse(localStorage.getItem('invoices')) : [];
+    let invoice: any = {
+      invoiceId: this.formInvoiceLoader.get('invoiceId').value,
+      net: this.formInvoiceLoader.get('net').value,
+      tax: this.formInvoiceLoader.get('tax').value,
+      total: this.formInvoiceLoader.get('total').value
+    };
+
+    invoices.push(invoice);
+
+    localStorage.removeItem('invoices');
+    localStorage.setItem('invoices', JSON.stringify(invoices));
+
+    //cargar tabla
+  }
+
+  processAndContinue(){
+    this.router.navigate(['/invoicesProcessed']);
   }
 }

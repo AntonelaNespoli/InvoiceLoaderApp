@@ -7,6 +7,8 @@ import { WeatherService } from "./services/weather.service";
 })
 export class AppComponent implements OnInit {
   title = 'InvoiceLoaderApp';
+  existInvoices = JSON.parse(localStorage.getItem('existInvoices')) ?? false;
+
   total: number = 0;
   longitude: number = 0;
   latitude: number = 0;
@@ -32,12 +34,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPosition();
-
-
+    this.getWeather();
   }
 
-  getPosition() {
+  getWeather() {
     if (navigator.geolocation) { //check if geolocation is available
       navigator.geolocation.getCurrentPosition(position => {
         this.latitude = position.coords.latitude;
@@ -96,32 +96,31 @@ export class AppComponent implements OnInit {
         return "SAT";
     }
   }
-    getWeatherIcon(icon: string): string {
-      switch (icon) {
-        case '01d':
-          return "../assets/icons/2204345-weather/png/001-sunny.png";
-        case '01n':
-          return "../assets/icons/2204345-weather/png/013-new moon.png";
-        case '02d': case '03d': case '04d':
-          return "../assets/icons/2204345-weather/png/002-cloudy.png";
-        case '02n': case '03n': case '04n':
-          return "../assets/icons/2204345-weather/png/016-cloudy.png";
-        case '09d':
-          return "../assets/icons/2204345-weather/png/003-rain.png";
-        case '09n':
-          return "../assets/icons/2204345-weather/png/017-rain.png";
-        case '10d': case '10n':
-          return "../assets/icons/2204345-weather/png/005-heavy rain.png";
-        case '11d': case '11n':
-          return "../assets/icons/2204345-weather/png/007-thunder.png";
-        case '13d': case '13n':
-          return "../assets/icons/2204345-weather/png/019-snowflake.png";
-        case '50d': case '50n':
-          return "../assets/icons/2204345-weather/png/011-wind.png";
-        default:
-          return "../assets/icons/2204345-weather/png/039-rainbow.png"
-      }
+  getWeatherIcon(icon: string): string {
+    switch (icon) {
+      case '01d':
+        return "../assets/icons/2204345-weather/png/001-sunny.png";
+      case '01n':
+        return "../assets/icons/2204345-weather/png/013-new moon.png";
+      case '02d': case '03d': case '04d':
+        return "../assets/icons/2204345-weather/png/002-cloudy.png";
+      case '02n': case '03n': case '04n':
+        return "../assets/icons/2204345-weather/png/016-cloudy.png";
+      case '09d':
+        return "../assets/icons/2204345-weather/png/003-rain.png";
+      case '09n':
+        return "../assets/icons/2204345-weather/png/017-rain.png";
+      case '10d': case '10n':
+        return "../assets/icons/2204345-weather/png/005-heavy rain.png";
+      case '11d': case '11n':
+        return "../assets/icons/2204345-weather/png/007-thunder.png";
+      case '13d': case '13n':
+        return "../assets/icons/2204345-weather/png/019-snowflake.png";
+      case '50d': case '50n':
+        return "../assets/icons/2204345-weather/png/011-wind.png";
+      default:
+        return "../assets/icons/2204345-weather/png/039-rainbow.png"
     }
-
-
   }
+
+}
