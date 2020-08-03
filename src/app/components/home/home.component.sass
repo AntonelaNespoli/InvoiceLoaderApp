@@ -1,12 +1,62 @@
 .formInvoiceLoader
   display: flex
   justify-content: space-between
+  @media screen and (max-width: 1199px)
+    display: block
 
 .form-group
   flex-direction: column
+  @media screen and (max-width: 1199px)
+    display: row
+
+.inputFormGroup
+  @media screen and (max-width: 1199px)
+    display: inline-block
+    width: 100%
+
+.inputFormGroup>.col-form-label
+  @media screen and (max-width: 1199px)
+    display: inline-block
+    width: 50%
+    float: left
+
+.inputFormGroup>.col-form-input
+  @media screen and (max-width: 1199px)
+    display: inline-block
+    width: 50%
+    float: right
+
+.btnFormGroup
+  @media screen and (max-width: 1199px)
+    display: inline-flex
+    width: 50%
+    margin: auto
+
+.labelBtnForm
+  @media screen and (max-width: 1199px)
+    display: none
 
 .btnForm
   padding: 6px 1.8vw
+  @media screen and (max-width: 1199px)
+    display: inline-flex
+    width: 98%
+    margin-bottom: 3%
+
+
+.desktopVersion
+  @media screen and (max-width: 767px)
+    display: none
+
+  @media screen and (min-width: 768px)
+    display: block
+
+.mobileVersion
+  @media screen and (max-width: 767px)
+    display:block
+
+  @media screen and (min-width: 768px)
+    display: none
 
 
 .rowBtnContinue
