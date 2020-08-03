@@ -5,83 +5,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InvoiceLoaderApp</title>
+
 </head>
 
 <body>
   <div class="container">
     <div class="row">
       <div class="col align-self-center col-banner">
-        <img src="../assets/img/Code Challenge Banner.jfif" alt="banner, relaxed office worker" class="banner" />
+        <img src="../assets/img/Code Challenge Banner.jfif" alt="banner, relaxed office worker" class="banner" width="100%" />
       </div>
     </div>
+    <app-form></app-form>
+    <app-table-invoices></app-table-invoices>
+    <app-table-totals *ngIf="false"></app-table-totals>
     <div class="row">
-      <div class="col align-self-center">
-        <form autocomplete="off" class="formInvoiceLoader">
-            <div class="form-group row">
-              <label class="col col-form-label">Invoice Number</label>
-              <div class="col">
-                <input class="form-control" type="number" placeholder="00000000" length="8">
+      <div class="col align-self-center col-api-weather">
+        <div class="weather" *ngIf="weather">
+          <div class="current">
+            <div class="info">
+              <div>&nbsp;</div>
+              <div class="city">
+                <h3>{{weather.name}}</h3>
               </div>
+              <div class="temp">{{temp}}&deg; <small>C</small></div>
+              <div class="wind"><small><small>WIND:</small></small> {{windSpeed}} km/h</div>
+              <div>&nbsp;</div>
             </div>
-            <div class="form-group row">
-              <label class="col col-form-label">Net</label>
-              <div class="col">
-                <input class="form-control" type="number" placeholder="0">
-              </div>
-            </div>
-          <div class="form-group row">
-            <label class="col col-form-label">% Tax</label>
-            <div class="col">
-              <select class="custom-select">
-                <option [ngValue]="21" disabled selected>Select Tax %</option>
-                <option [ngValue]="0"> 0% </option>
-                <option [ngValue]="10.5"> 10.5% </option>
-                <option [ngValue]="21"> 21% </option>
-                <option [ngValue]="27"> 27% </option>
-             </select>
+            <div class="icon">
+              <img [src]="imgCurrentWeather" [alt]="descCurrentWeather" width="250vw">
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col col-form-label">Total</label>
-            <div class="col">
-              <input class="form-control" type="number" placeholder="0" disabled>
+          <div class="future">
+            <div class="day">
+              <h3>{{dayWeek1}}</h3>
+              <img [src]="iconDay1" [alt]="descDay1"  width="15%">
+            </div>
+            <div class="day">
+              <h3>{{dayWeek2}}</h3>
+              <img [src]="iconDay2" [alt]="descDay2" width="15%">
+            </div>
+            <div class="day">
+              <h3>{{dayWeek3}}</h3>
+              <img [src]="iconDay3" [alt]="descDay3" width="15%">
             </div>
           </div>
-
-          <div class="form-group row">
-            <label class="col col-form-label">&nbsp;</label>
-            <div class="col">
-              <button type="submit" class="btn btn-outline-success btn-block btnForm">
-                Add
-              </button>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col col-form-label">&nbsp;</label>
-            <div class="col">
-              <button type="" class="btn btn-outline-danger btn-block btnForm">
-                Clear
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col align-self-center">
-
-      </div>
-    </div>
-    <div class="row rowBtnContinue">
-      <div class="col-3">
-        <button type="submit" class="btn btn-primary btn-block">
-          Process and Continue
-        </button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col align-self-center">
-        <!--aca va la api del clima-->
+        </div>
+        <div class="weather" *ngIf="!weather">
+          <h3>Please activate the browser location to get weather information.</h3>
+        </div>
       </div>
     </div>
   </div>
