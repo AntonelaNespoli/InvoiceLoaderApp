@@ -42,7 +42,7 @@ export class TableTotalsComponent implements OnInit {
 
   //convert from string (xx, xxx.xx) in to number, in order to use the number to calculate the total
   numberConvert(str: string):number{
-    return parseFloat(str.replace(".", "").replace(",", "."));
+    return parseFloat(str.split(".").join("").replace(",", "."));
   }
 
   //format from number to string (format: xx,xxx.xx) to show it in the view

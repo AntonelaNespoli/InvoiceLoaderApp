@@ -1,35 +1,36 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {  async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { WeatherService } from "./services/weather.service";
+import { HttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+  let app: AppComponent;
+  let service: WeatherService;
+  let httpClient: HttpClient;
+
+  beforeEach(async(()=>{
+    service = new WeatherService(httpClient);
+    app = new AppComponent(service);
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  //test to getWeekDay(n number)
+  it('Test to getWeekDay(n number): The result is MON', async(() => {
+    let dayNumber = new Date('2020/08/03').getDay();
+    expect(app.getWeekDay(dayNumber+1)).toEqual('MON');
+  }));
 
-  it(`should have as title 'InvoiceLoaderApp'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('InvoiceLoaderApp');
-  });
+  it('Test to getWeekDay(n number): The result is THU', async(() => {
+    let dayNumber = new Date('2020/11/12').getDay();
+    expect(app.getWeekDay(dayNumber+1)).toEqual('THU');
+  }));
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('InvoiceLoaderApp app is running!');
-  });
+  //test to getWeatherIcon(i string)
+  it('Test to getWeatherIcon(i string): The result is sunny day', async(() => {
+    expect(app.getWeatherIcon('01d')).toEqual('../assets/icons/2204345-weather/png/001-sunny.png');
+  }));
+
+  it('Test to getWeatherIcon(i string): The result is thunder day', async(() => {
+    expect(app.getWeatherIcon('11n')).toEqual('../assets/icons/2204345-weather/png/007-thunder.png');
+  }));
+
 });

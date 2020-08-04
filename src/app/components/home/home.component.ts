@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   //When inputs net or tax percent are change calculate the total
   onChanges(): void {
     //get the net and tax percent
-    let net: number = Number(this.formInvoiceLoader.get('net').value);
+    let net: number = isNaN(Number(this.formInvoiceLoader.get('net').value)) ? parseFloat(this.formInvoiceLoader.get('net').value.split(".").join("").replace(",", ".")) : Number(this.formInvoiceLoader.get('net').value);
     let taxPercent: number = this.formInvoiceLoader.get('taxPercent').value;
     taxPercent = taxPercent == -1 ? 21 : taxPercent;
     let total : number = 0;
