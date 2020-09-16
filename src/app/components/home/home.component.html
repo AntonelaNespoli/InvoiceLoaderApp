@@ -117,11 +117,10 @@
         </tr>
         <tr>
           <th scope="col">Total</th>
-          <th scope="col">&nbsp;</th>
+          <td>${{ invoice.total }}</td>
         </tr>
         <tr>
-          <td>${{ invoice.total }}</td>
-          <td><button type="submit" class="btn btn-danger btn-block" (click)="removeInvoice(invoice.invoiceId)">Remove</button></td>
+          <td colspan="2"><button type="submit" class="btn btn-danger btn-block" (click)="removeInvoice(invoice.invoiceId)">Remove</button></td>
         </tr>
       </tbody>
     </table>
